@@ -463,5 +463,5 @@ export const FINAL_CTA = {
 
 export const FOOTER = {
   text: "© 2025 Lucas Antunes — Criação de Sites e Landing Pages",
-  links: [],
+  links: [] as Array<{ href: string; label: string }>,
 };
