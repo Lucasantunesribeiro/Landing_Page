@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import React from "react";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
 const inter = Inter({
@@ -121,7 +122,9 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased">
         {children}
-        <GoogleAnalytics />
+        <React.Suspense fallback={null}>
+          <GoogleAnalytics />
+        </React.Suspense>
       </body>
     </html>
   );

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ABOUT } from "@/lib/content";
 import { Card, CardContent } from "@/components/ui/card";
 import { User, Code, Rocket, MessageSquare } from "lucide-react";
@@ -22,9 +23,11 @@ export function About() {
                   {ABOUT.image ? (
                     <div className="relative">
                       <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-blue-500 rounded-full blur-xl opacity-50 animate-pulse" />
-                      <img
+                      <Image
                         src={ABOUT.image}
                         alt={ABOUT.name}
+                        width={128}
+                        height={128}
                         className="relative w-32 h-32 rounded-full object-cover border-4 border-white shadow-xl"
                       />
                     </div>
