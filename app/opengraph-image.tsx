@@ -71,7 +71,7 @@ export default async function Image() {
               maxWidth: "1000px",
             }}
           >
-            Landing pages que geram clientes no WhatsApp
+            Landing pages no ar em 72h — feitas pra converter cliques em WhatsApp
           </div>
 
           {/* Subtitle */}

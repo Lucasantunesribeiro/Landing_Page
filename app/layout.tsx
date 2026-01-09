@@ -1,17 +1,22 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+  preload: true,
 });
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://landing-page-eta-beryl.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Sites e Landing Pages que Convertem | Lucas Antunes",
+  metadataBase: new URL(baseUrl),
+  title: "Landing Page no Ar em 72h — Feita pra Converter Cliques em WhatsApp | Lucas Antunes",
   description:
-    "Criação de sites e landing pages para academias, lojas, restaurantes e negócios locais. Entrega em 48-72h, mobile-first e com foco em conversão via WhatsApp. Pacotes a partir de R$ 690.",
+    "Landing pages otimizadas para negócios locais. Entrega em 72h, mobile-first, com foco em conversão via WhatsApp. Pacotes a partir de R$ 590. Sem promessas mágicas, foco em resultados reais.",
   keywords: [
     "criação de sites",
     "landing page",
@@ -21,23 +26,38 @@ export const metadata: Metadata = {
     "whatsapp",
     "conversão",
     "negócios locais",
+    "site para negócio local",
+    "página de conversão",
   ],
   authors: [{ name: "Lucas Antunes" }],
   creator: "Lucas Antunes",
+  publisher: "Lucas Antunes",
+  alternates: {
+    canonical: baseUrl,
+  },
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: "https://seudominio.com.br", // TODO: Trocar pela URL real
-    title: "Sites e Landing Pages que Convertem | Lucas Antunes",
+    url: baseUrl,
+    title: "Landing Page no Ar em 72h — Feita pra Converter Cliques em WhatsApp",
     description:
-      "Criação de sites e landing pages para negócios locais. Entrega rápida em 48-72h com foco em conversão.",
+      "Landing pages otimizadas para negócios locais. Entrega em 72h, mobile-first, com foco em conversão via WhatsApp. Sem promessas mágicas, foco em resultados reais.",
     siteName: "Lucas Antunes - Landing Pages",
+    images: [
+      {
+        url: `${baseUrl}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "Lucas Antunes - Landing Pages",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sites e Landing Pages que Convertem | Lucas Antunes",
+    title: "Landing Page no Ar em 72h — Feita pra Converter Cliques em WhatsApp",
     description:
-      "Criação de sites e landing pages para negócios locais. Entrega rápida em 48-72h com foco em conversão.",
+      "Landing pages otimizadas para negócios locais. Entrega em 72h, mobile-first, com foco em conversão via WhatsApp.",
+    images: [`${baseUrl}/og-image.png`],
   },
   robots: {
     index: true,
@@ -93,12 +113,16 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={inter.variable}>
       <head>
+        <link rel="canonical" href={baseUrl} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        {children}
+        <GoogleAnalytics />
+      </body>
     </html>
   );
 }

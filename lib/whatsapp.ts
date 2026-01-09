@@ -44,3 +44,17 @@ export function getQuoteLink(niche?: string, packageName?: string): string {
   const message = getQuoteMessage(niche, packageName);
   return getWhatsAppLink(message);
 }
+
+/**
+ * Tracka clique no WhatsApp no GA4
+ * @param position - Posição do botão (hero, footer, floating, etc)
+ */
+export function trackWhatsAppClick(position: string): void {
+  if (typeof window !== "undefined" && (window as any).gtag) {
+    (window as any).gtag("event", "whatsapp_click", {
+      event_category: "engagement",
+      event_label: position,
+      value: 1,
+    });
+  }
+}

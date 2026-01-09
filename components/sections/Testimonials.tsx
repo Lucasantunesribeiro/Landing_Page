@@ -1,80 +1,67 @@
-import { Star } from "lucide-react";
-import { TESTIMONIALS } from "@/lib/content";
-import { Card } from "@/components/ui/card";
+import { Check, Instagram, MapPin, QrCode, MessageCircle, ArrowRight } from "lucide-react";
+import { HOW_PEOPLE_REACH } from "@/lib/content";
+
+const itemIcons = [
+  { icon: Instagram, color: "text-pink-600", bg: "bg-pink-50" },
+  { icon: MapPin, color: "text-red-600", bg: "bg-red-50" },
+  { icon: QrCode, color: "text-blue-600", bg: "bg-blue-50" },
+  { icon: MessageCircle, color: "text-green-600", bg: "bg-green-50" },
+  { icon: ArrowRight, color: "text-purple-600", bg: "bg-purple-50" },
+];
 
 export function Testimonials() {
   return (
-    <section className="py-16 md:py-24 bg-white">
-      <div className="container mx-auto px-4 max-w-7xl">
+    <section className="py-16 md:py-24 bg-gradient-to-b from-white via-blue-50/20 to-white relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-20 left-0 w-72 h-72 bg-green-100 rounded-full opacity-30 blur-3xl" />
+      <div className="absolute bottom-20 right-0 w-72 h-72 bg-blue-100 rounded-full opacity-30 blur-3xl" />
+      
+      <div className="container mx-auto px-4 max-w-7xl relative">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            {TESTIMONIALS.title}
-          </h2>
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <div className="flex gap-1">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className="w-5 h-5 fill-yellow-400 text-yellow-400"
-                />
-              ))}
-            </div>
-            <span className="text-gray-900 font-semibold">
-              {TESTIMONIALS.rating}
-            </span>
-            <span className="text-gray-600">
-              ({TESTIMONIALS.totalReviews} avaliações)
-            </span>
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-100 to-green-100 mb-6">
+            <MessageCircle className="w-8 h-8 text-gray-700" />
           </div>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            {TESTIMONIALS.subtitle}
-          </p>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4">
+            {HOW_PEOPLE_REACH.title}
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-green-500 to-blue-500 rounded-full mx-auto" />
         </div>
 
-        {/* Grid de depoimentos */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {TESTIMONIALS.items.map((testimonial) => (
-            <Card
-              key={testimonial.id}
-              className="p-6 hover:shadow-lg transition-shadow"
-            >
-              {/* Estrelas */}
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-4 h-4 fill-yellow-400 text-yellow-400"
-                  />
-                ))}
-              </div>
-
-              {/* Texto */}
-              <p className="text-gray-700 mb-4 italic">
-                &ldquo;{testimonial.text}&rdquo;
-              </p>
-
-              {/* Autor */}
-              <div className="border-t border-gray-200 pt-4">
-                <p className="font-semibold text-gray-900">
-                  {testimonial.author}
-                </p>
-                <p className="text-sm text-gray-600">
-                  {testimonial.business} • {testimonial.niche}
-                </p>
-              </div>
-            </Card>
-          ))}
-        </div>
-
-        {/* Aviso de transparência */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center max-w-3xl mx-auto">
-          <p className="text-sm text-gray-700">
-            <span className="font-semibold">Transparência:</span> Os demos
-            apresentados são projetos conceito criados para demonstrar o
-            potencial das páginas. Cada projeto é 100% personalizado com sua
-            marca, fotos, conteúdo e identidade visual.
-          </p>
+        {/* Lista de bullets */}
+        <div className="max-w-4xl mx-auto">
+          <ul className="space-y-4">
+            {HOW_PEOPLE_REACH.items.map((item, index) => {
+              const iconConfig = itemIcons[index] || { icon: Check, color: "text-green-600", bg: "bg-green-50" };
+              const Icon = iconConfig.icon;
+              
+              return (
+                <li
+                  key={index}
+                  className="group relative"
+                >
+                  <div className="flex items-start gap-4 p-6 bg-white rounded-xl border-2 border-gray-200 hover:border-green-300 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    {/* Icon container */}
+                    <div className={`flex-shrink-0 w-12 h-12 rounded-xl ${iconConfig.bg} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md`}>
+                      <Icon className={`w-6 h-6 ${iconConfig.color}`} />
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="flex-1 pt-1">
+                      <span className="text-lg font-medium text-gray-800 group-hover:text-gray-900 transition-colors">
+                        {item}
+                      </span>
+                    </div>
+                    
+                    {/* Arrow indicator */}
+                    <div className="flex-shrink-0 pt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <ArrowRight className="w-5 h-5 text-green-600" />
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
     </section>

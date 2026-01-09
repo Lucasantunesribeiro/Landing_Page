@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://seudominio.com.br"; // TODO: Trocar pela URL real
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://landing-page-eta-beryl.vercel.app";
 
   return [
     {

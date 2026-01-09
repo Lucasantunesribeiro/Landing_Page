@@ -4,8 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 import { NICHES } from "@/lib/content";
-import { getQuoteLink } from "@/lib/whatsapp";
 import { ButtonLink } from "@/components/ui/button-link";
+import { WhatsAppButtonLink } from "@/components/ui/whatsapp-button-link";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
@@ -19,17 +19,28 @@ export function NicheDemos() {
   const [activeTab, setActiveTab] = useState(NICHES[0].id);
 
   return (
-    <section id="demos" className="py-16 md:py-24 bg-gray-50">
-      <div className="container mx-auto px-4 max-w-7xl">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+    <section
+      id="demos"
+      className="py-20 bg-gradient-to-b from-white via-gray-50/50 to-white md:py-28 relative overflow-hidden"
+    >
+      {/* Background decoration */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-green-100/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-100/20 rounded-full blur-3xl" />
+
+      <div className="container mx-auto px-4 max-w-7xl relative z-10">
+        {/* Header melhorado */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-green-100 to-blue-100 mb-6">
+            <ExternalLink className="w-7 h-7 text-gray-700" />
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-4">
             Demos por nicho
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Explore exemplos criados para diferentes negócios. Todos
             personalizáveis com sua marca.
           </p>
+          <div className="mt-6 w-24 h-1 bg-gradient-to-r from-green-500 to-blue-500 rounded-full mx-auto" />
         </div>
 
         {/* Desktop: TABS */}
@@ -40,12 +51,12 @@ export function NicheDemos() {
             onValueChange={setActiveTab}
             className="w-full"
           >
-            <TabsList className="w-full justify-start mb-8 bg-white border border-gray-200">
+            <TabsList className="w-full justify-start mb-10 bg-white/80 backdrop-blur-sm border-2 border-gray-200 rounded-xl p-1.5 shadow-lg">
               {NICHES.map((niche) => (
                 <TabsTrigger
                   key={niche.id}
                   value={niche.id}
-                  className="flex-1 data-[state=active]:bg-gray-900 data-[state=active]:text-white"
+                  className="flex-1 data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-600 data-[state=active]:to-emerald-600 data-[state=active]:text-white data-[state=active]:shadow-md rounded-lg transition-all duration-300 font-semibold"
                 >
                   {niche.title}
                 </TabsTrigger>
@@ -95,7 +106,7 @@ function NicheContent({ niche }: NicheContentProps) {
         {niche.demos.map((demo, index) => (
           <Card
             key={index}
-            className="overflow-hidden hover:shadow-lg transition-shadow"
+            className="group overflow-hidden border-2 border-gray-200 hover:border-green-300 hover:shadow-xl transition-all duration-300 bg-white"
           >
             {/* Screenshot */}
             <a
@@ -132,7 +143,10 @@ function NicheContent({ niche }: NicheContentProps) {
               {/* Bullets */}
               <ul className="space-y-2">
                 {demo.bullets.map((bullet, idx) => (
-                  <li key={idx} className="flex items-start text-sm text-gray-600">
+                  <li
+                    key={idx}
+                    className="flex items-start text-sm text-gray-600"
+                  >
                     <span className="inline-block w-1.5 h-1.5 bg-gray-400 rounded-full mt-1.5 mr-2 flex-shrink-0" />
                     {bullet}
                   </li>
@@ -152,15 +166,15 @@ function NicheContent({ niche }: NicheContentProps) {
                   <ExternalLink className="w-4 h-4" />
                   Ver demo
                 </ButtonLink>
-                <ButtonLink
+                <WhatsAppButtonLink
                   size="sm"
-                  href={getQuoteLink(niche.title)}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  position="niche-demo"
+                  niche={niche.title}
                   className="w-full bg-green-600 hover:bg-green-700 text-white"
+                  aria-label={`Pedir orçamento para ${niche.title}`}
                 >
                   Quero um igual
-                </ButtonLink>
+                </WhatsAppButtonLink>
               </div>
             </div>
           </Card>
@@ -168,54 +182,52 @@ function NicheContent({ niche }: NicheContentProps) {
       </div>
 
       {/* O que você recebe em 72h */}
-      <div className="bg-white border border-gray-200 rounded-lg p-6 md:p-8">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">
-          O que você recebe em 72h para {niche.title}
-        </h3>
-        <div className="grid md:grid-cols-2 gap-3">
-          <div className="flex items-start gap-3">
-            <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <div className="w-2 h-2 rounded-full bg-green-600" />
-            </div>
-            <p className="text-gray-700">
-              Página 100% responsiva (mobile, tablet, desktop)
-            </p>
-          </div>
-          <div className="flex items-start gap-3">
-            <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <div className="w-2 h-2 rounded-full bg-green-600" />
-            </div>
-            <p className="text-gray-700">
-              Integração com WhatsApp para captura de leads
-            </p>
-          </div>
-          <div className="flex items-start gap-3">
-            <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <div className="w-2 h-2 rounded-full bg-green-600" />
-            </div>
-            <p className="text-gray-700">SEO básico configurado</p>
-          </div>
-          <div className="flex items-start gap-3">
-            <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <div className="w-2 h-2 rounded-full bg-green-600" />
-            </div>
-            <p className="text-gray-700">Hospedagem gratuita incluída</p>
-          </div>
-        </div>
+      <div className="relative bg-gradient-to-br from-white to-gray-50/50 border-2 border-gray-200 rounded-2xl p-8 md:p-10 shadow-lg overflow-hidden">
+        {/* Decorative gradient */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-green-100/20 rounded-full blur-3xl" />
 
-        {/* CTA dentro da seção */}
-        <div className="mt-6 pt-6 border-t border-gray-200">
-          <ButtonLink
-            size="lg"
-            href={getQuoteLink(niche.title)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full md:w-auto bg-green-600 hover:bg-green-700 text-white"
-          >
-            Pedir orçamento para {niche.title}
-          </ButtonLink>
+        <div className="relative z-10">
+          <h3 className="text-2xl font-extrabold text-gray-900 mb-6 flex items-center gap-3">
+            <div className="w-1.5 h-8 bg-gradient-to-b from-green-500 to-emerald-500 rounded-full" />
+            O que você recebe em 72h para {niche.title}
+          </h3>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              "Página 100% responsiva (mobile, tablet, desktop)",
+              "Integração com WhatsApp para captura de leads",
+              "SEO básico configurado",
+              "Publicação no ar (deploy) incluída. Hospedagem/domínio ficam na conta do cliente.",
+            ].map((item, idx) => (
+              <div key={idx} className="flex items-start gap-3 group/item">
+                <div className="flex-shrink-0 mt-0.5">
+                  <div className="w-6 h-6 rounded-lg bg-green-100 flex items-center justify-center group-hover/item:bg-green-200 transition-colors shadow-sm">
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-600" />
+                  </div>
+                </div>
+                <p className="text-gray-700 leading-relaxed group-hover/item:text-gray-900 transition-colors">
+                  {item}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA dentro da seção */}
+          <div className="mt-6 pt-6 border-t border-gray-200">
+            <WhatsAppButtonLink
+              size="lg"
+              position="niche-cta"
+              niche={niche.title}
+              className="w-full md:w-auto bg-green-600 hover:bg-green-700 text-white"
+              aria-label={`Pedir orçamento para ${niche.title}`}
+            >
+              Pedir orçamento para {niche.title}
+            </WhatsAppButtonLink>
+          </div>
         </div>
       </div>
+
+      {/* ✅ FECHAMENTO QUE FALTAVA: fecha o wrapper <div className="space-y-8"> */}
     </div>
   );
 }
